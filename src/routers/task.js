@@ -15,18 +15,22 @@ router.post("/tasks", auth, async (req, res) => {
 });
 
 // GET /tasks?completed=false
+// GET /tasks ?limit=10&skip=20
 router.get("/tasks", auth, async (req, res) => {
   const match = {};
   if (req.query.completed) {
+    // we want to get the boolean value
+    // thi is how we get
     match.completed = req.query.completed === "true";
   }
   try {
-    //below also works
-    //const result = await Task.find({owner:req.user._id});
-
     await req.user.populate({
       path: "tasks",
       match,
+      options: {
+        limit: parseInt(req.query.limit),
+        skip: parseInt(req.query.skip),
+      },
     });
     res.send(req.user.tasks);
   } catch (e) {
