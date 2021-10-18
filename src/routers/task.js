@@ -67,16 +67,6 @@ router.patch("/tasks/:id", auth, async (req, res) => {
   if (!isValidOperation)
     return res.status(400).send({ error: "Invalid updates" });
   try {
-    // const _id = req.params.id;
-    // const task = await Task.findByIdAndUpdate(_id, req.body, {
-    //   new: true,
-    //   runValidators: true,
-    // });
-    //if there is no user to update
-    // const task = await Task.findById(req.params.id);
-    // updates.forEach((update) => (task[update] = req.body[update]));
-    // await task.save();
-    //const task = await Task.findById(req.params.id);
     const task = await Task.findOne({
       _id: req.params.id,
       owner: req.user._id,
