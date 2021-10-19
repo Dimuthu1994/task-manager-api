@@ -44,6 +44,10 @@ const usersSchema = new mongoose.Schema(
         token: { type: String, required: true },
       },
     ],
+
+    avatar: {
+      type: Buffer,
+    },
   },
   {
     timestamps: true,
